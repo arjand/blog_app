@@ -34,10 +34,12 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development, :test do
-	# Use sqlite3 as the database for Active Record
-	#gem 'sqlite3'
+group :development, :test do	
 	gem 'rspec-rails'
+	gem 'guard-rspec'
+	gem 'spork-rails', github: 'sporkrb/spork-rails'
+  gem 'guard-spork'
+  gem 'childprocess'
 end
 
 group :test do
