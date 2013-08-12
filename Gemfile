@@ -27,6 +27,8 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem 'pg'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -34,7 +36,7 @@ end
 
 group :development, :test do
 	# Use sqlite3 as the database for Active Record
-	gem 'sqlite3'
+	#gem 'sqlite3'
 	gem 'rspec-rails'
 end
 
@@ -44,7 +46,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
+  
   # for rails 4 on heroku
   gem 'rails_12factor'
 end
