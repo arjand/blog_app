@@ -1,13 +1,12 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple microblogging application
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+* Ruby 2.0.0
+
+* Rails 4.0.0
 
 * Configuration
 
