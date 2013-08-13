@@ -6,47 +6,58 @@ describe "StaticPages" do
 
   subject { page }
 
+  shared_examples_for 'all static pages' do
+    it { should have_selector('h1', text: heading) }
+    it { should have_title( full_title(page_title)) }
+  end
+
   describe "Home page" do
     before { visit root_path }
-
-    it { should have_content('Blog App') }  
-    it { should have_title( full_title('') ) }
+    let(:heading) { base_title }
+    let(:page_title) { '' }
+    
+    it_should_behave_like "all static pages"
     it { should_not have_title('| Home') }
-  end
-  # describe "Home page" do
-  #   before { visit root_path }  # visit the root path before each example
-  #   it "should have the content 'Blog App'" do      
-  #     expect(page).to have_content('Blog App')      
-  #   end
-  #   it "should have the right title" do
-  #   	expect(page).to have_title("#{base_title} ")
-  #   end
-  #   it "should not have a custom page title" do
-  #     expect(page).not_to have_title("#{base_title} | Home")
-  #   end    
-  # end
+  end  
 
   describe "Help page" do
     before { visit help_path }
-
-  	it { should have_content('Help') }  
-    it { should have_title( full_title('Help') ) }  
+    let(:heading) { "Help" }
+    let(:page_title) { "Help" }
+    
+    it_should_behave_like "all static pages"     
   end
 
   describe "About page" do
     before { visit about_path }
+    let(:heading) { "About" }
+    let(:page_title) { "About" }
     
-    it { should have_content('About') }  
-    it { should have_title( full_title('About') ) }  
+    it_should_behave_like "all static pages" 
   end
 
   describe "Contact page" do
     before { visit contact_path }
+    let(:heading) { "Contact" }
+    let(:page_title) { "Contact" }
     
-    it { should have_content('Contact') }  
-    it { should have_title( full_title('Contact') ) }  
+    it_should_behave_like "all static pages" 
   end
 
+  it "Should have the right links on the layout" do
+    visit root_path
+    click_link "About"
+    page.should have_title full_title "About"
+    click_link "Help"
+    page.should have_title full_title "Help"
+    click_link "Contact"
+    page.should have_title full_title "Contact"
+    click_link "Home"
+    click_link "Sign up now!"
+    page.should have_title full_title "Signup"
+    click_link "blog app"
+    page.should have_title full_title ""
 
+  end
 
 end
