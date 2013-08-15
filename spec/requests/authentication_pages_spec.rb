@@ -5,8 +5,7 @@ describe "Authentication" do
  	subject { page }
 
  	describe "Signin page" do
- 		before { visit signin_path }
- 		let(:login) { "Sign in" }
+ 		before { visit signin_path } 		
  		let(:user) { FactoryGirl.create(:user) }
 
  		it { should have_content("Signin") }
@@ -14,12 +13,8 @@ describe "Authentication" do
  		
  			
 		describe "with invalid email address" do
-			before do
-				fill_in "Email", with: "jp@starfleet.com"
-      	fill_in "Password", with: "pAssword"
-      	click_button login
-			end
-			
+			before { signin("jp@starfleet.com", user.password) }
+				
 			it { should have_error_message('Invalid') }
 
 			describe "after visiting another page" do
@@ -29,16 +24,13 @@ describe "Authentication" do
 		end
 
 		describe "with invalid password" do
-			before do 	 				
-				fill_in "Email", with: "arj@test.com"
-				fill_in "Password", with: "password"
-				click_button login
-			end
+			before { signin(user.email, "PASSWORD") }
+
 			it { should have_error_message('Invalid') }
 		end
 
 		describe "with valid username and pass" do
-			before { valid_signin(user) }
+			before { signin(user.email, user.password) }
 			
 			it { should have_title(user.name) }
 			it { should have_link('Profile', href: user_path(user)) }
