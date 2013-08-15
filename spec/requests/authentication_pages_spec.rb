@@ -20,7 +20,7 @@ describe "Authentication" do
       	click_button login
 			end
 			
-			it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+			it { should have_error_message('Invalid') }
 
 			describe "after visiting another page" do
 			  before { click_link "Home" }
@@ -34,15 +34,12 @@ describe "Authentication" do
 				fill_in "Password", with: "password"
 				click_button login
 			end
-			it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+			it { should have_error_message('Invalid') }
 		end
 
 		describe "with valid username and pass" do
-			before do 
-				fill_in "Email", with: user.email.upcase
-				fill_in "Password", with: user.password
-				click_button login
-			end
+			before { valid_signin(user) }
+			
 			it { should have_title(user.name) }
 			it { should have_link('Profile', href: user_path(user)) }
 			it { should have_link('Sign out', href: signout_path) }
@@ -55,10 +52,6 @@ describe "Authentication" do
 				it { should have_link('Sign in')}
 			end
 		end 		
- 	end
-
- 	describe "Signout page" do
- 		pending
  	end
 
 end
